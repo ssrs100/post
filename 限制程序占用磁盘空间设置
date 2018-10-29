@@ -1,0 +1,20 @@
+#创建文件系统
+范例创建一个6G的文件，并将此文件系统格式化为Ext3格式
+
+```
+dd if=/dev/zero of=file.disk bs=1M count=6144
+
+losetup /dev/loop100 myspace.disk
+
+mkfs.ext3 /dev/loop100
+
+losetup -d /dev/loop100
+```
+
+#挂载文件系统
+接着将此文件mount到本机的一个目录中
+```
+mkdir /opt/myspace
+mount -o loop myspace.disk /opt/myspace
+```
+
