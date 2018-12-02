@@ -1,0 +1,22 @@
+
+master：my.cnf
+```
+[mysqld]
+server-id   = 1
+log_bin     = /var/log/mysql/mysql-bin.log
+```
+
+slave:
+```
+[mysqld]
+server-id = 2
+log_bin     = /var/log/mysql/mysql-bin.log
+```
+
+sql:
+```
+change master to master_host='172.31.23.155',master_port=3306,master_user='blue',master_password='blue@123';
+start slave;
+```
+
+show binlog events;
