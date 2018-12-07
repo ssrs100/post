@@ -15,6 +15,11 @@ EXPOSE  80
 CMD     /usr/sbin/sshd -D
 ```
 
+构建镜像：
+```
+docker build -t ssrs/centos:6.7 /root/docfile
+```
+
 修改镜像:
 ```
 docker run -ti docker.io/centos:6.7 /bin/bash
