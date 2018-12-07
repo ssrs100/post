@@ -1,0 +1,11 @@
+FROM    centos:6.7
+MAINTAINER      ssrs "ssrs@163.com"
+
+
+RUN     /bin/echo 'root:123456' |chpasswd
+RUN     useradd ssrs
+RUN     /bin/echo 'ssrs:123456' |chpasswd
+RUN     /bin/echo -e "LANG=\"en_US.UTF-8\"" >/etc/default/local
+EXPOSE  22
+EXPOSE  80
+CMD     /usr/sbin/sshd -D
