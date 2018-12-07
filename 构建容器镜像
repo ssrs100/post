@@ -1,0 +1,33 @@
+
+dockerfile:
+
+```
+FROM    centos:6.7
+MAINTAINER      Macy "five3@163.com"
+
+
+RUN     /bin/echo 'root:123456' |chpasswd
+RUN     useradd five3
+RUN     /bin/echo 'five3:123456' |chpasswd
+RUN     /bin/echo -e "LANG=\"en_US.UTF-8\"" >/etc/default/local
+EXPOSE  22
+EXPOSE  80
+CMD     /usr/sbin/sshd -D
+```
+
+修改镜像:
+```
+docker run -ti docker.io/centos:6.7 /bin/bash
+```
+
+保存镜像：
+```
+docker commit -m="with ssrs" -a="ssrs100" faef94779a4a ssrs100/cenos:6.7
+```
+ssrs100须为docker hub的账户名
+
+push：
+
+```
+docker push ssrs100/cenos:6.7
+```
