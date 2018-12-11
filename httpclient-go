@@ -1,0 +1,37 @@
+golang 使用http client 的正确方式
+
+package main
+
+import (
+	"fmt"
+	"io/ioutil"
+	"net"
+	"net/http"
+	"time"
+)
+
+func main() {
+	var netTransport = &http.Transport{
+		Dial: (&net.Dialer{
+			Timeout:   10 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout:   5 * time.Second,
+		ResponseHeaderTimeout: 10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+	}
+	var netClient = &http.Client{
+		Timeout:   time.Second * 30,
+		Transport: netTransport,
+	}
+
+	// get
+	response, _ := netClient.Get("http://www.golangnote.com/")
+	defer response.Body.Close()
+
+	if response.StatusCode == 200 {
+		body, _ := ioutil.ReadAll(response.Body)
+		fmt.Println(string(body))
+	}
+
+}
