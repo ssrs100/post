@@ -1,6 +1,7 @@
 
 # soft ether安装设置
 make
+
 ./vpnserver start
 
 
